@@ -1,0 +1,19 @@
+# Synthetic sample data — for demonstration only.
+# Current-state snapshot; derived from identity + the event log. References
+# events by ID (checked by the check_links tool).
+updated: 2026-02-01
+current_hours: 41230
+last_event: EVT-0002
+systems:
+  cooling: ok
+  intake: DEGRADED
+open_issues:
+  - id: R-001
+    desc: "Intake filter differential pressure rising"
+    severity: medium
+    refs: [EVT-0002]
+pending:
+  - "Schedule intake filter replacement"
+next_action:
+  objective: "Replace intake filter and re-baseline pressure"
+  safety: "Operate below 80% load until resolved"

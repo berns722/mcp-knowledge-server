@@ -1,0 +1,10 @@
+# Synthetic sample data — for demonstration only.
+# Near-immutable identity of the asset. Validated by schemas/identity.schema.json.
+asset:
+  name: Demo Compressor Unit
+  category: equipment
+  serial: SAMPLE-0001
+  commissioned: 2024-01-15
+  registry:
+    initial_hours: 12000
+    target_hours: 100000

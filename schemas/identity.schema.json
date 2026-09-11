@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Asset identity",
+  "description": "Validates data/identity.yaml. 'PENDING' is accepted where a value is not yet known.",
+  "type": "object",
+  "required": ["asset"],
+  "properties": {
+    "asset": {
+      "type": "object",
+      "required": ["name", "category", "serial", "registry"],
+      "properties": {
+        "name": { "type": "string" },
+        "category": { "enum": ["equipment", "vehicle", "facility"] },
+        "serial": { "type": "string" },
+        "commissioned": {
+          "oneOf": [
+            { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+            { "const": "PENDING" }
+          ]
+        },
+        "registry": {
+          "type": "object",
+          "required": ["target_hours"],
+          "properties": {
+            "initial_hours": { "type": "integer", "minimum": 0 },
+            "target_hours": { "type": "integer", "minimum": 1 }
+          }
+        }
+      }
+    }
+  }
+}
