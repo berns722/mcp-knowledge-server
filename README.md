@@ -12,6 +12,24 @@ reproducible and verifiable.
 > This is a public, generalized extract of tooling I built for a private
 > knowledge-management project. All data in `data/` is synthetic sample data.
 
+## How it works
+
+```mermaid
+flowchart LR
+    A["AI agent<br/>(Claude Desktop / Code)"] -->|"calls via MCP"| S
+    subgraph S["MCP server (this repo)"]
+        direction TB
+        T1["get_state — read"]
+        T2["next_action — read"]
+        T3["validate_schemas — verify"]
+        T4["check_links — verify"]
+    end
+    S -->|"reads / checks"| F[("Versioned files<br/>identity.yaml · state.yaml · log/")]
+```
+
+The files stay the single source of truth; the server is a live doorway that reads and
+verifies them — it never copies the data.
+
 ## The knowledge base
 
 A tiny, git-tracked system with the shape real ones have:
@@ -41,6 +59,11 @@ environments for coding agents:
 2. Assert the tools **catch** it.
 3. Apply the **golden reference solution** (fix the value, create the missing document).
 4. A **deterministic verifier** confirms the tools report healthy again.
+
+```mermaid
+flowchart LR
+    B["1 · Seed a broken state<br/>(invalid field, dangling ref)"] --> G["2 · Apply the golden solution<br/>(fix value, create missing doc)"] --> V["3 · Deterministic verify ✓<br/>(tools report healthy)"]
+```
 
 It runs on every push via GitHub Actions (`.github/workflows/ci.yml`).
 
